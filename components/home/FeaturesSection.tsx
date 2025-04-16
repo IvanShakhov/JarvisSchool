@@ -1,104 +1,142 @@
 "use client"
 
-import { FaLaptop, FaCertificate, FaClock, FaUserFriends } from 'react-icons/fa'
+import { useEffect, useRef } from 'react'
+import { motion, useAnimation, useInView } from 'framer-motion'
+import { FaLaptopCode, FaChalkboardTeacher, FaUsers, FaMedal, FaClipboardCheck, FaRocket } from 'react-icons/fa'
 
-const features = [
-  {
-    icon: <FaLaptop className="text-4xl text-primary-500 mb-4" />,
-    title: "Онлайн обучение",
-    description: "Учитесь в удобное время и в любом месте. Доступ к курсам с любого устройства."
-  },
-  {
-    icon: <FaCertificate className="text-4xl text-primary-500 mb-4" />,
-    title: "Сертификаты",
-    description: "Получите сертификат по окончании курса, который повысит вашу ценность на рынке труда."
-  },
-  {
-    icon: <FaClock className="text-4xl text-primary-500 mb-4" />,
-    title: "Гибкий график",
-    description: "Обучайтесь в своем темпе, выбирайте время для занятий самостоятельно."
-  },
-  {
-    icon: <FaUserFriends className="text-4xl text-primary-500 mb-4" />,
-    title: "Сообщество",
-    description: "Общайтесь с единомышленниками, обменивайтесь опытом и находите новые возможности."
-  }
-]
+interface FeatureProps {
+  icon: React.ReactNode
+  title: string
+  description: string
+}
 
-const FeaturesSection = () => {
+const Feature = ({ icon, title, description }: FeatureProps) => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px 0px" })
+  const controls = useAnimation()
+  
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible")
+    }
+  }, [isInView, controls])
+  
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container-custom">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Почему JarvisSchool?</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto">
-            Наша платформа предоставляет все необходимые инструменты для комфортного и эффективного обучения
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
-            <div key={index} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-              <div className="text-center">
-                {feature.icon}
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-16 bg-primary-600 rounded-xl overflow-hidden shadow-xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="p-8 lg:p-12 text-white">
-              <h3 className="text-2xl font-bold mb-4">Персонализированное обучение</h3>
-              <p className="mb-6 opacity-90">
-                Мы предлагаем индивидуальный подход к каждому студенту. Наши курсы адаптируются к вашему уровню знаний и скорости обучения.
-              </p>
-              <ul className="space-y-3">
-                {[
-                  "Индивидуальная траектория обучения",
-                  "Персональные рекомендации",
-                  "Отслеживание прогресса",
-                  "Поддержка преподавателей"
-                ].map((item, index) => (
-                  <li key={index} className="flex items-start">
-                    <svg className="w-5 h-5 text-secondary-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-primary-700 p-8 lg:p-12 flex items-center justify-center">
-              <div className="w-full max-w-md">
-                <div className="bg-white rounded-xl p-6 shadow-lg">
-                  <div className="flex items-center mb-4">
-                    <div className="w-2 h-8 bg-secondary-500 rounded-full mr-3"></div>
-                    <h4 className="text-xl font-bold text-gray-800">Статистика JarvisSchool</h4>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { value: "50+", label: "Курсов" },
-                      { value: "10K+", label: "Студентов" },
-                      { value: "95%", label: "Завершают обучение" },
-                      { value: "4.8/5", label: "Рейтинг курсов" }
-                    ].map((stat, index) => (
-                      <div key={index} className="text-center p-3">
-                        <div className="text-2xl font-bold text-primary-600">{stat.value}</div>
-                        <div className="text-sm text-gray-600">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+      }}
+      className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+    >
+      <div className="inline-flex items-center justify-center p-3 bg-blue-100 rounded-full mb-4">
+        <div className="text-blue-600 text-2xl">
+          {icon}
         </div>
       </div>
-    </section>
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-600">{description}</p>
+    </motion.div>
   )
 }
 
-export default FeaturesSection 
+export default function FeaturesSection() {
+  const features = [
+    {
+      icon: <FaLaptopCode />,
+      title: "Интерактивные курсы",
+      description: "Практические занятия и интерактивный код прямо в браузере, чтобы учиться на практике"
+    },
+    {
+      icon: <FaChalkboardTeacher />,
+      title: "Опытные преподаватели",
+      description: "Обучение от практикующих разработчиков с реальным опытом работы в индустрии"
+    },
+    {
+      icon: <FaUsers />,
+      title: "Сообщество студентов",
+      description: "Доступ к сообществу, где можно общаться с другими студентами и получать поддержку"
+    },
+    {
+      icon: <FaMedal />,
+      title: "Сертификаты",
+      description: "Получите сертификат о прохождении курса, который вы можете добавить в своё резюме"
+    },
+    {
+      icon: <FaClipboardCheck />,
+      title: "Персональные задания",
+      description: "Индивидуальные проекты и задания с обратной связью от преподавателей"
+    },
+    {
+      icon: <FaRocket />,
+      title: "Карьерный рост",
+      description: "Помощь в трудоустройстве и подготовка к собеседованиям для лучших студентов"
+    }
+  ]
+
+  const sectionRef = useRef(null)
+  const isSectionInView = useInView(sectionRef, { once: true, margin: "-100px 0px" })
+  const headingControls = useAnimation()
+  
+  useEffect(() => {
+    if (isSectionInView) {
+      headingControls.start("visible")
+    }
+  }, [isSectionInView, headingControls])
+
+  return (
+    <section className="py-20 bg-gray-50" ref={sectionRef}>
+      <div className="container mx-auto px-4">
+        <motion.div 
+          initial="hidden"
+          animate={headingControls}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+          }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Почему выбирают JarvisSchool</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Наша платформа предлагает современный подход к обучению программированию, 
+            который сочетает практический опыт с глубоким пониманием теории.
+          </p>
+        </motion.div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <Feature 
+              key={index}
+              icon={feature.icon}
+              title={feature.title}
+              description={feature.description}
+            />
+          ))}
+        </div>
+
+        <motion.div
+          initial="hidden"
+          animate={headingControls}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { delay: 0.4, duration: 0.6 } }
+          }}
+          className="text-center mt-16"
+        >
+          <a 
+            href="/courses" 
+            className="inline-flex items-center text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition-colors"
+          >
+            Посмотреть все курсы
+            <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  )
+} 

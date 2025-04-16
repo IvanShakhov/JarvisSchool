@@ -1,14 +1,11 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
-
-const inter = Inter({ subsets: ['latin', 'cyrillic'] })
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'JarvisSchool - Курсы разностороннего развития',
-  description: 'Платформа для онлайн курсов разностороннего развития',
+  title: 'JarvisSchool - Образовательная платформа',
+  description: 'Онлайн-курсы для развития профессиональных навыков и карьерного роста',
 }
 
 export default function RootLayout({
@@ -18,14 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className={inter.className}>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </div>
+      <body>
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
   )

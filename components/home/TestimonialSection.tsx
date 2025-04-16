@@ -2,8 +2,9 @@
 
 import Image from 'next/image'
 import { FaQuoteLeft } from 'react-icons/fa'
+import type { Testimonial } from '@/lib/types'
 
-const testimonials = [
+const testimonials: Testimonial[] = [
   {
     id: 1,
     name: "Иван Петров",
@@ -32,39 +33,39 @@ const testimonials = [
 
 const TestimonialSection = () => {
   return (
-    <section className="py-16">
+    <section className="py-24 bg-gray-50">
       <div className="container-custom">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Отзывы наших студентов</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto">
-            Узнайте, что говорят наши выпускники о своем опыте обучения на JarvisSchool
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4 text-gray-800">Истории успеха студентов</h2>
+          <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+            Послушайте, что говорят наши выпускники о своем опыте обучения на JarvisSchool
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="bg-white rounded-xl shadow-md p-6 relative">
-              <FaQuoteLeft className="text-4xl text-primary-100 absolute top-6 right-6" />
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+            <div key={testimonial.id} className="bg-white rounded-lg shadow-sm p-8 transition-all duration-300 hover:shadow-md flex flex-col">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 rounded-full overflow-hidden mr-4 border-2 border-gray-100">
                   <Image 
                     src={testimonial.avatar} 
                     alt={testimonial.name} 
-                    width={48} 
-                    height={48}
+                    width={64} 
+                    height={64}
                     className="object-cover"
                   />
                 </div>
                 <div>
-                  <h4 className="font-semibold">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-600">{testimonial.role}</p>
+                  <h4 className="font-semibold text-lg text-gray-800">{testimonial.name}</h4>
+                  <p className="text-sm text-blue-600">{testimonial.role}</p>
                 </div>
               </div>
-              <div className="mb-3 flex">
+              
+              <div className="mb-5 flex">
                 {[...Array(5)].map((_, index) => (
                   <svg 
                     key={index} 
-                    className={`w-4 h-4 ${index < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`} 
+                    className={`w-5 h-5 ${index < testimonial.rating ? 'text-yellow-400' : 'text-gray-200'}`} 
                     fill="currentColor" 
                     viewBox="0 0 20 20"
                   >
@@ -72,20 +73,25 @@ const TestimonialSection = () => {
                   </svg>
                 ))}
               </div>
-              <p className="text-gray-700">{testimonial.text}</p>
+              
+              <div className="relative mb-4 flex-grow">
+                <FaQuoteLeft className="text-2xl text-blue-100 absolute -top-1 -left-1" />
+                <p className="text-gray-700 leading-relaxed pl-6">{testimonial.text}</p>
+              </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center text-primary-500 font-medium hover:text-primary-700 transition-colors">
-            <a href="#" className="inline-flex items-center">
-              Читать больше отзывов 
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
+        <div className="mt-14 text-center">
+          <a 
+            href="#" 
+            className="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 bg-white rounded-md font-medium hover:bg-blue-50 transition-colors"
+          >
+            Просмотреть все отзывы
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
         </div>
       </div>
     </section>

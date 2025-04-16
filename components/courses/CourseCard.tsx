@@ -3,21 +3,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FaStar, FaUserGraduate } from 'react-icons/fa'
+import type { Course } from '@/lib/types'
 
-// Определение типа для объекта курса
+// Определение типа для пропсов компонента
 interface CourseProps {
-  course: {
-    id: string;
-    title: string;
-    description: string;
-    image: string;
-    price: number;
-    category: string;
-    instructor: string;
-    rating: number;
-    students: number;
-    level: string;
-  }
+  course: Course;
 }
 
 const CourseCard = ({ course }: CourseProps) => {
@@ -31,47 +21,55 @@ const CourseCard = ({ course }: CourseProps) => {
   }
 
   return (
-    <div className="card hover:shadow-lg transition-shadow">
-      <div className="relative h-48 w-full">
+    <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full">
+      <div className="relative aspect-video w-full">
         <Image 
           src={course.image} 
           alt={course.title}
           fill
-          className="object-cover rounded-t-xl"
+          className="object-cover"
         />
-        <div className="absolute top-2 right-2 bg-white px-2 py-1 rounded-lg text-xs font-medium text-primary-700">
+        <div className="absolute top-3 right-3 bg-white px-3 py-1 rounded-full text-xs font-semibold text-blue-600">
           {course.level}
         </div>
       </div>
-      <div className="p-5">
+      <div className="p-6 flex flex-col flex-grow">
+        <div className="mb-2 flex items-center text-sm text-gray-500">
+          <span className="bg-blue-50 text-blue-600 px-2 py-1 rounded-full text-xs font-medium">
+            {course.category}
+          </span>
+        </div>
         <Link href={`/courses/${course.id}`} className="block">
-          <h3 className="text-lg font-bold mb-2 hover:text-primary-500 transition-colors line-clamp-2">
+          <h3 className="text-xl font-bold mb-3 hover:text-blue-600 transition-colors line-clamp-2 text-gray-800">
             {course.title}
           </h3>
         </Link>
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-grow">
           {course.description}
         </p>
-        <div className="flex justify-between items-center mb-3">
+        <div className="flex items-center mb-4 text-sm text-gray-600">
+          <span className="font-medium mr-1">Преподаватель:</span>
+          <span>{course.instructor}</span>
+        </div>
+        <div className="flex justify-between items-center py-3 border-t border-gray-100">
           <div className="flex items-center">
-            <FaStar className="text-yellow-400 mr-1" />
-            <span className="text-sm font-medium">{course.rating}</span>
+            <div className="flex items-center mr-3">
+              <FaStar className="text-yellow-400 mr-1" />
+              <span className="font-medium">{course.rating}</span>
+            </div>
+            <div className="flex items-center text-gray-500 text-sm">
+              <FaUserGraduate className="mr-1" />
+              <span>{course.students}</span>
+            </div>
           </div>
-          <div className="flex items-center text-gray-600 text-sm">
-            <FaUserGraduate className="mr-1" />
-            <span>{course.students} студентов</span>
-          </div>
+          <span className="font-bold text-lg text-blue-600">{formatPrice(course.price)}</span>
         </div>
-        <div className="flex items-center text-sm text-gray-700 mb-4">
-          <span>Преподаватель: </span>
-          <span className="font-medium ml-1">{course.instructor}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="font-bold text-lg">{formatPrice(course.price)}</span>
-          <Link href={`/courses/${course.id}`} className="btn btn-primary">
-            Подробнее
-          </Link>
-        </div>
+        <Link 
+          href={`/courses/${course.id}`} 
+          className="mt-4 w-full inline-block text-center py-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors"
+        >
+          Перейти к курсу
+        </Link>
       </div>
     </div>
   )
