@@ -50,11 +50,12 @@ const HeroBanner = () => {
           <div className="relative">
             <div className="relative rounded-xl overflow-hidden shadow-2xl">
               <Image 
-                src="/images/hero-image.jpg" 
-                alt="JarvisSchool - Обучение" 
+                src="/images/developer-illustration.jpg" 
+                alt="Разработчик обучается программированию" 
                 width={600} 
-                height={400}
-                className="object-cover"
+                height={600}
+                className="object-contain bg-white"
+                priority
               />
             </div>
             <div className="absolute -bottom-5 -left-5 bg-white p-4 rounded-xl shadow-lg">
