@@ -1,3 +1,5 @@
+"use client"
+
 import { FaLaptop, FaCertificate, FaClock, FaUserFriends } from 'react-icons/fa'
 
 const features = [

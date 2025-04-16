@@ -1,3 +1,5 @@
+"use client"
+
 import Image from 'next/image'
 import { FaStar, FaUserGraduate, FaChalkboardTeacher } from 'react-icons/fa'
 

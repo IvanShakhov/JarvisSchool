@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from 'react'
 import { FaChevronDown, FaChevronUp, FaPlay, FaLock } from 'react-icons/fa'
 
