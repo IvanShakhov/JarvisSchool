@@ -50,7 +50,7 @@ const HeroBanner = () => {
           <div className="relative">
             <div className="relative rounded-xl overflow-hidden shadow-2xl">
               <Image 
-                src="/images/developer-illustration.jpg" 
+                src="/images/developer-illustration.png" 
                 alt="Разработчик обучается программированию" 
                 width={600} 
                 height={600}
